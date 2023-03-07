@@ -10,33 +10,32 @@
 #define FAILURE 0
 
 enum S21_MATRIX_CODE {
-    S21_SUCCESS = 0,
-    S21_INVALID_MATRIX = 1,
-    S21_MATH_OPERATIONS_ERROR = 2,
+  S21_SUCCESS = 0,
+  S21_INVALID_MATRIX = 1,
+  S21_MATH_OPERATIONS_ERROR = 2,
 };
 
 #define CHECK(condition, code) \
-    do {                       \
-        if (condition) {       \
-            return code;       \
-        }                      \
-    } while (0)
+  do {                         \
+    if (condition) {           \
+      return code;             \
+    }                          \
+  } while (0)
 
-#define KILL_BAD_MATRIX(delete_matrix, position)      \
-    do {                                              \
-        if (delete_matrix->matrix != NULL) {          \
-            for (int i = 0; i < position; i++) {      \
-                if (delete_matrix->matrix[i] != NULL) \
-                    free(delete_matrix->matrix[i]);   \
-            }                                         \
-            return S21_INVALID_MATRIX;                \
-        }                                             \
-    } while (0)
+#define KILL_BAD_MATRIX(delete_matrix, position)                              \
+  do {                                                                        \
+    if (delete_matrix->matrix != NULL) {                                      \
+      for (int i = 0; i < position; i++) {                                    \
+        if (delete_matrix->matrix[i] != NULL) free(delete_matrix->matrix[i]); \
+      }                                                                       \
+      return S21_INVALID_MATRIX;                                              \
+    }                                                                         \
+  } while (0)
 
 typedef struct matrix_struct {
-    double **matrix;
-    int rows;
-    int columns;
+  double **matrix;
+  int rows;
+  int columns;
 } matrix_t;
 
 int s21_create_matrix(int rows, int columns, matrix_t *result);

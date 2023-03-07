@@ -30,10 +30,11 @@ gcov_report:
 	./make_report.out
 	lcov -t "make_report" -o make_report.info -c -d . 
 	genhtml -o report make_report.info
+	open report/index.html
 
 style:
-	cp ../materials/linters/CPPLINT.cfg CPPLINT.cfg
-	python3 ../materials/linters/cpplint.py --extension=c *.c *.h
+	cp ../materials/linters/.clang-format .clang-format
+	clang-format -style=google -n *.c *.h
 
 leaks: test
 	CK_FORK=no leaks --atExit -- ./tests.out
@@ -42,3 +43,4 @@ clean:
 	rm -rf *.o *.gch *.out *.gcno *.gcda *.info *.gcov *cfg *.a
 	rm -rf report/
 	rm -rf temp/
+	rm -rf .clang-format
